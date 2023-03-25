@@ -24,10 +24,10 @@ public sealed class TorrentResponseModel
     public string? Download { get; set; }
 
     [JsonPropertyName("seeders")]
-    public int? Seeders { get; set; }
+    public uint? Seeders { get; set; }
 
     [JsonPropertyName("leechers")]
-    public int? Leechers { get; set; }
+    public uint? Leechers { get; set; }
 
     [JsonPropertyName("size")]
     public ulong? Size { get; set; }
@@ -39,7 +39,7 @@ public sealed class TorrentResponseModel
     public EpisodeInfo? EpisodeInfo { get; set; }
 
     [JsonPropertyName("ranked")]
-    public int? Ranked { get; set; }
+    public short? Ranked { get; set; }
 
     [JsonPropertyName("info_page")]
     public string? InfoPage { get; set; }

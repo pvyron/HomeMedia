@@ -11,18 +11,21 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HomeMedia.Infrastructure.Torrents.Dto;
+using Microsoft.Extensions.Logging;
 
 namespace HomeMedia.Application;
 internal sealed class TorrentSearchService : ITorrentSearchService
 {
     private readonly string _apiUrl = "https://torrentapi.org/pubapi_v2.php?app_id=vyron_torrent_app";
 
+    private readonly ILogger<TorrentSearchService> _logger;
     private readonly HttpClient _client;
     private TorrentsApiAccessToken? _accessToken;
 
-    public TorrentSearchService(IHttpClientFactory httpClientFactory)
+    public TorrentSearchService(ILogger<TorrentSearchService> logger, IHttpClientFactory httpClientFactory)
     {
         _client = httpClientFactory.CreateClient();
+        _logger = logger;
     }
 
     public async Task<IEnumerable<TorrentInfo>> QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams)
@@ -53,7 +56,9 @@ internal sealed class TorrentSearchService : ITorrentSearchService
         {
             Category = r.Category ?? "",
             Download = r.Download ?? "",
-            Filename = r.Title ?? ""
+            Filename = r.Title ?? "",
+            Seeders = r.Seeders.GetValueOrDefault(0),
+            Size = r.Size.GetValueOrDefault(0),
         }) ?? new List<TorrentInfo>();
     }
 
