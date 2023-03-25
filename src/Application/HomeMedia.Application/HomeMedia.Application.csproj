@@ -14,4 +14,8 @@
     <ProjectReference Include="..\..\Domain\HomeMedia.Models\HomeMedia.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Torrents\Exceptions\" />
+  </ItemGroup>
+
 </Project>

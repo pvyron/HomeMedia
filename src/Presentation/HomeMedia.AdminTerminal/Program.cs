@@ -13,8 +13,28 @@ IHost host = Host.CreateDefaultBuilder(args)
 
 var service = host.Services.GetService<ITorrentSearchService>();
 
-var query = "";
+Console.WriteLine("Give torrent title");
+string? name = null;
 
-var torrentData = await service!.QueryTorrentDataAsync(query);
+while (string.IsNullOrWhiteSpace(name))
+{
+    name = Console.ReadLine();
+}
+
+var torrentData = await service!.QueryTorrentDataAsync(new HomeMedia.Application.Torrents.Models.TorrentSearchParams
+{
+    Name = name
+});
+
+foreach (var torrent in torrentData)
+{
+    Console.WriteLine();
+    Console.WriteLine("------------------------------------------------------------------");
+    Console.WriteLine();
+    Console.WriteLine(torrent.Filename);
+    Console.WriteLine(torrent.Download);
+}
+
+Console.ReadLine();
 
 await host.StopAsync();

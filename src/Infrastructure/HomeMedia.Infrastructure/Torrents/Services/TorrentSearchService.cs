@@ -1,17 +1,22 @@
 ﻿using HomeMedia.Application.Torrents.Interfaces;
+using HomeMedia.Application.Torrents.Models;
 using HomeMedia.Infrastructure.Torrents.Models;
-using HomeMedia.Models;
+using HomeMedia.Models.Torrents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
+using HomeMedia.Infrastructure.Torrents.Dto;
 
 namespace HomeMedia.Application;
 internal sealed class TorrentSearchService : ITorrentSearchService
 {
-    private string _apiUrl = "https://torrentapi.org/pubapi_v2.php";
+    private readonly string _apiUrl = "https://torrentapi.org/pubapi_v2.php?app_id=vyron_torrent_app";
+
     private readonly HttpClient _client;
     private TorrentsApiAccessToken? _accessToken;
 
@@ -20,34 +25,41 @@ internal sealed class TorrentSearchService : ITorrentSearchService
         _client = httpClientFactory.CreateClient();
     }
 
-    public async Task<IEnumerable<TorrentData>> QueryTorrentDataAsync(string searchQuery)
+    public async Task<IEnumerable<TorrentInfo>> QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams)
     {
         while (!(_accessToken?.IsValid() ?? false))
         {
             await Login();
         }
 
-        while (!_accessToken!.IsReadyForRequest(out var token))
+        string token;
+
+        while (!_accessToken.IsReadyForRequest(out token))
         {
-            await Task.Delay(5000);
+            await Task.Delay(1000);
         }
 
-        var requestUri = new TorrentUri(_apiUrl, new Dictionary<string, string>
+        var requestUri = new Uri($"{_apiUrl}&{torrentSearchParams.AsQueryString()}&token={token}");
+
+        var searchResponse = await SendRequest<TorrentSearchResponseModel>(requestUri);
+
+        if (searchResponse is null)
         {
+            throw new HttpRequestException($"Request was unsuccessful");
+        }
 
-        });
-
-        
-
-        return new List<TorrentData>();
+        return searchResponse.Torrents?.Select(r => 
+        new TorrentInfo
+        {
+            Category = r.Category ?? "",
+            Download = r.Download ?? "",
+            Filename = r.Title ?? ""
+        }) ?? new List<TorrentInfo>();
     }
 
     private async Task Login()
     {
-        var requestUri = new TorrentUri(_apiUrl, new Dictionary<string, string>
-        {
-            { "get_token", "get_token" }
-        });
+        var requestUri = new Uri(_apiUrl + "&get_token=get_token");
 
         var accessToken = await SendRequest<TorrentsAccessTokenResponseModel>(requestUri);
 
@@ -59,16 +71,28 @@ internal sealed class TorrentSearchService : ITorrentSearchService
         _accessToken = new(accessToken.Token);
     }
 
-    private async Task<T?> SendRequest<T>(Uri requestUrl)
+    private async Task<T?> SendRequest<T>(Uri requestUri)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+        var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
 
         var response = await _client.SendAsync(request);
 
-        var responseContent = await response.Content.ReadAsStreamAsync();
+        var responseContent = await response.Content.ReadAsStringAsync();
 
-        var responseObject = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(responseContent);
+        var responseObject = JsonSerializer.Deserialize<T>(responseContent, _serializerOptions);
 
         return responseObject;
     }
+
+    readonly JsonSerializerOptions _serializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        MaxDepth = 10,
+        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        WriteIndented = true,
+        DefaultBufferSize = 128
+    };
 }

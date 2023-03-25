@@ -19,13 +19,13 @@ internal sealed class TorrentsApiAccessToken
 
     private DateTime _lastRequest;
 
-    public bool IsValid() => _createdOn > DateTime.UtcNow.AddMinutes(14);
+    public bool IsValid() => _createdOn.AddMinutes(14) >= DateTime.UtcNow;
 
     public bool IsReadyForRequest(out string token)
     {
         token = string.Empty;
 
-        if (_lastRequest < DateTime.UtcNow.AddSeconds(20))
+        if (_lastRequest.AddSeconds(20) >= DateTime.UtcNow)
             return false;
 
         _lastRequest = DateTime.UtcNow;

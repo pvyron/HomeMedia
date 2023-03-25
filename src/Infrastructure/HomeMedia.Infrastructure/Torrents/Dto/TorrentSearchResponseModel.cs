@@ -5,11 +5,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace HomeMedia.Infrastructure.Torrents.Models;
+namespace HomeMedia.Infrastructure.Torrents.Dto;
 public sealed class TorrentSearchResponseModel
 {
     [JsonPropertyName("torrent_results")]
-    public List<TorrentSearchResponseModel>? Torrents { get; set; }
+    public List<TorrentResponseModel>? Torrents { get; set; }
 }
 
 public sealed class TorrentResponseModel
@@ -30,7 +30,7 @@ public sealed class TorrentResponseModel
     public int? Leechers { get; set; }
 
     [JsonPropertyName("size")]
-    public int? Size { get; set; }
+    public ulong? Size { get; set; }
 
     [JsonPropertyName("pubdate")]
     public string? Pubdate { get; set; }
