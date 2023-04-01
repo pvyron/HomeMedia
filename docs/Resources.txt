@@ -1,2 +1,5 @@
 https://torrentapi.org/apidocs_v2.txt
 https://www.autohotkey.com/boards/viewtopic.php?style=7&t=109131
+https://consultwithgriff.com/building-window-services-in-dotnet/
+https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-7.0&tabs=visual-studio
+https://www.youtube.com/watch?v=96ZG0UhDzjE

@@ -29,7 +29,7 @@ while (true)
         Name = name
     });
 
-    foreach (var torrent in torrentData)
+    foreach (var torrent in torrentData.ToList().OrderByDescending(t => t.Seeders))
     {
         Console.WriteLine();
         Console.WriteLine("------------------------------------------------------------------");
@@ -40,7 +40,7 @@ while (true)
         Console.WriteLine("Seeders: " + torrent.Seeders);
     }
 
-    if (torrentData.Count() > 0)
+    if (torrentData.Any())
     {
         //await clientService!.DownloadTorrent(torrentData.First().Download, "D:\\Media");
     }

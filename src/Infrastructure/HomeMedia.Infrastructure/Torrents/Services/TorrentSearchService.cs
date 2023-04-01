@@ -1,19 +1,13 @@
 ﻿using HomeMedia.Application.Torrents.Interfaces;
 using HomeMedia.Application.Torrents.Models;
+using HomeMedia.Infrastructure.Torrents.Dto;
 using HomeMedia.Infrastructure.Torrents.Models;
 using HomeMedia.Models.Torrents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Threading.Tasks;
-using HomeMedia.Infrastructure.Torrents.Dto;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace HomeMedia.Application;
+namespace HomeMedia.Infrastructure.Torrents.Services;
 internal sealed class TorrentSearchService : ITorrentSearchService
 {
     private readonly string _apiUrl = "https://torrentapi.org/pubapi_v2.php?app_id=vyron_torrent_app";
@@ -51,7 +45,7 @@ internal sealed class TorrentSearchService : ITorrentSearchService
             throw new HttpRequestException($"Request was unsuccessful");
         }
 
-        return searchResponse.Torrents?.Select(r => 
+        return searchResponse.Torrents?.Select(r =>
         new TorrentInfo
         {
             Category = r.Category ?? "",

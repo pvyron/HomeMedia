@@ -15,11 +15,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{D491A1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C1EFE17E-2F19-46B1-9484-867B0D8DF933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeMedia.Application", "src\Application\HomeMedia.Application\HomeMedia.Application.csproj", "{D8100886-576B-4AE7-98A6-33AA8D5795D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.Application", "src\Application\HomeMedia.Application\HomeMedia.Application.csproj", "{D8100886-576B-4AE7-98A6-33AA8D5795D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeMedia.Models", "src\Domain\HomeMedia.Models\HomeMedia.Models.csproj", "{749CD9D6-628A-4EB3-9D1D-968E2E78F496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.Models", "src\Domain\HomeMedia.Models\HomeMedia.Models.csproj", "{749CD9D6-628A-4EB3-9D1D-968E2E78F496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeMedia.Infrastructure", "src\Infrastructure\HomeMedia.Infrastructure\HomeMedia.Infrastructure.csproj", "{9558208A-5394-45B7-8D22-C6CB4B523EBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.Infrastructure", "src\Infrastructure\HomeMedia.Infrastructure\HomeMedia.Infrastructure.csproj", "{9558208A-5394-45B7-8D22-C6CB4B523EBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3D19B3D8-C9CF-4BD1-93D8-D8D994A857D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1C41E9FD-0839-4DD3-8CFE-A8A86B4C15BE}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Resources.txt = docs\Resources.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.WindowsService", "src\Presentation\HomeMedia.WindowsService\HomeMedia.WindowsService.csproj", "{72197307-E689-44CA-A85F-DF34F86656D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.Contracts", "src\Presentation\HomeMedia.Contracts\HomeMedia.Contracts.csproj", "{D98D2BEE-C712-403D-9B09-DBD3E01B7761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeMedia.PiProxy", "HomeMedia.PiProxy\HomeMedia.PiProxy.csproj", "{B30EACBC-84D6-42DC-BFA4-43BD47713AAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +56,18 @@ Global
 		{9558208A-5394-45B7-8D22-C6CB4B523EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9558208A-5394-45B7-8D22-C6CB4B523EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9558208A-5394-45B7-8D22-C6CB4B523EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72197307-E689-44CA-A85F-DF34F86656D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72197307-E689-44CA-A85F-DF34F86656D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72197307-E689-44CA-A85F-DF34F86656D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72197307-E689-44CA-A85F-DF34F86656D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98D2BEE-C712-403D-9B09-DBD3E01B7761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98D2BEE-C712-403D-9B09-DBD3E01B7761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98D2BEE-C712-403D-9B09-DBD3E01B7761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98D2BEE-C712-403D-9B09-DBD3E01B7761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B30EACBC-84D6-42DC-BFA4-43BD47713AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30EACBC-84D6-42DC-BFA4-43BD47713AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30EACBC-84D6-42DC-BFA4-43BD47713AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30EACBC-84D6-42DC-BFA4-43BD47713AAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +81,9 @@ Global
 		{D8100886-576B-4AE7-98A6-33AA8D5795D6} = {C7F2111E-A7E4-432C-B817-395FE14D372E}
 		{749CD9D6-628A-4EB3-9D1D-968E2E78F496} = {D491A1E0-EA5A-449F-B8F6-2991D21A63AB}
 		{9558208A-5394-45B7-8D22-C6CB4B523EBF} = {C1EFE17E-2F19-46B1-9484-867B0D8DF933}
+		{72197307-E689-44CA-A85F-DF34F86656D8} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
+		{D98D2BEE-C712-403D-9B09-DBD3E01B7761} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
+		{B30EACBC-84D6-42DC-BFA4-43BD47713AAE} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72CB8909-8D36-4CD5-8275-A0433E06E63F}

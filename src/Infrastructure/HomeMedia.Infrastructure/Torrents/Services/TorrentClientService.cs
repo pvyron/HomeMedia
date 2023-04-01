@@ -1,15 +1,7 @@
-﻿using HomeMedia.Application;
-using HomeMedia.Application.Torrents.Interfaces;
+﻿using HomeMedia.Application.Torrents.Interfaces;
 using HomeMedia.Models.Torrents;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeMedia.Infrastructure.Torrents.Services;
 internal sealed class TorrentClientService : ITorrentClientService
