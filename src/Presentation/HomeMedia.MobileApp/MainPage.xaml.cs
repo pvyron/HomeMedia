@@ -1,43 +1,32 @@
 ﻿using HomeMedia.MobileApp.Torrents;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.Diagnostics;
 
 namespace HomeMedia.MobileApp;
 
 public partial class MainPage : ContentPage
 {
-    private readonly TorrentSearchService _torrentSearchService;
-    int _count = 0;
+    private readonly ITorrentDataService _torrentDataService;
 
-    public MainPage()
+    public MainPage(ITorrentDataService torrentDataService)
     {
         InitializeComponent();
-        _torrentSearchService = new TorrentSearchService(new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            MaxDepth = 10,
-            ReferenceHandler = ReferenceHandler.IgnoreCycles,
-            WriteIndented = true,
-            DefaultBufferSize = 128
-        });
+
+        _torrentDataService = torrentDataService;
     }
 
-    private async void OnCounterClicked(object sender, EventArgs e)
+    async void OnSearchClicked(object sender, EventArgs e)
     {
-        _count++;
+        var result = await _torrentDataService.SearchTorrentsAsync("young sheldon");
 
-        if (_count == 1)
-            CounterBtn.Text = $"Clicked {_count} time";
-        else
-            CounterBtn.Text = $"Clicked {_count} times";
+        result.IfSucc(succ => searchResultsCollectionView.ItemsSource = succ.ToList());
+        result.IfFail(fail => Debug.WriteLine(fail.Message));
+    }
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
-
-        _ = await _torrentSearchService.SearchTorrents("Ncis");
-
+    async void OnTorrentSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Debug.WriteLine("Torrent selected");
     }
 }
 

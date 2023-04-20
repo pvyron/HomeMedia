@@ -18,8 +18,8 @@ public static class MauiProgram
             });
 
         var services = builder.Services;
-
-
+        services.AddSingleton<ITorrentDataService, TorrentDataService>();
+        services.AddSingleton<MainPage>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
