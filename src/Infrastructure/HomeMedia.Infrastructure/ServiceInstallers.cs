@@ -7,7 +7,7 @@ public static class ServiceInstallers
 {
     public static IServiceCollection AddTorrents(this IServiceCollection services)
     {
-        services.AddSingleton<ITorrentSearchService, TorrentSearchService>();
+        services.AddSingleton<ITorrentSearchService, RyukTorrentSearchService>();
         services.AddSingleton<ITorrentClientService, TorrentClientService>();
 
         return services;

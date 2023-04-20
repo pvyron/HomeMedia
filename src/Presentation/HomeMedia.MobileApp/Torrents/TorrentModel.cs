@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeMedia.Contracts.Torrents;
-public sealed class TorrentsSearchResponseModel
+namespace HomeMedia.MobileApp.Torrents;
+
+public sealed class TorrentModel
 {
     public required string Filename { get; init; }
     public required string Category { get; init; }

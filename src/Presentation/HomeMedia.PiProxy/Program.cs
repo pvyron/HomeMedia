@@ -34,7 +34,7 @@ app.MapPost("/api/torrents/search", async ([FromServices] ITorrentSearchService 
         Filename = info.Filename,
         Seeders = info.Seeders,
         Size = info.Size,
-        SizeText = ((long)info.Size).GetBytesReadable()
+        SizeText = info.Size //((long)info.Size).GetBytesReadable()
     });
 });
 

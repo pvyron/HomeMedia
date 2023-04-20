@@ -1,13 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace HomeMedia.Infrastructure.Torrents.Dto;
-public sealed class TorrentSearchResponseModel
+public sealed class TorrentSearchRarbgResponseModel
 {
     [JsonPropertyName("torrent_results")]
-    public List<TorrentResponseModel>? Torrents { get; set; }
+    public List<TorrentRarbgResponseModel>? Torrents { get; set; }
 }
 
-public sealed class TorrentResponseModel
+public sealed class TorrentRarbgResponseModel
 {
     [JsonPropertyName("title")]
     public string? Title { get; set; }

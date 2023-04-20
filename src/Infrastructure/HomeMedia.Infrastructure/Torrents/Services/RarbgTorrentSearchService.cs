@@ -8,22 +8,24 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace HomeMedia.Infrastructure.Torrents.Services;
-internal sealed class TorrentSearchService : ITorrentSearchService
+internal sealed class RarbgTorrentSearchService : ITorrentSearchService
 {
     private readonly string _apiUrl = "https://torrentapi.org/pubapi_v2.php?app_id=vyron_torrent_app";
 
-    private readonly ILogger<TorrentSearchService> _logger;
+    private readonly ILogger<RarbgTorrentSearchService> _logger;
     private readonly HttpClient _client;
     private TorrentsApiAccessToken? _accessToken;
 
-    public TorrentSearchService(ILogger<TorrentSearchService> logger, IHttpClientFactory httpClientFactory)
+    public RarbgTorrentSearchService(ILogger<RarbgTorrentSearchService> logger, IHttpClientFactory httpClientFactory)
     {
         _client = httpClientFactory.CreateClient();
         _logger = logger;
     }
 
-    public async Task<IEnumerable<TorrentInfo>> QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams)
+    public async Task<List<TorrentInfo>> QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams)
     {
+        _logger.LogInformation("Request {search}", torrentSearchParams);
+
         while (!(_accessToken?.IsValid() ?? false))
         {
             await Login();
@@ -36,9 +38,9 @@ internal sealed class TorrentSearchService : ITorrentSearchService
             await Task.Delay(1000);
         }
 
-        var requestUri = new Uri($"{_apiUrl}&{torrentSearchParams.AsQueryString()}&token={token}");
+        var requestUri = new Uri($"{_apiUrl}&{torrentSearchParams.AsQueryStringRarbg()}&token={token}");
 
-        var searchResponse = await SendRequest<TorrentSearchResponseModel>(requestUri);
+        var searchResponse = await SendRequest<TorrentSearchRarbgResponseModel>(requestUri);
 
         if (searchResponse is null)
         {
@@ -51,9 +53,9 @@ internal sealed class TorrentSearchService : ITorrentSearchService
             Category = r.Category ?? "",
             Download = r.Download ?? "",
             Filename = r.Title ?? "",
-            Seeders = r.Seeders.GetValueOrDefault(0),
-            Size = r.Size.GetValueOrDefault(0),
-        }) ?? new List<TorrentInfo>();
+            Seeders = r.Seeders.GetValueOrDefault(0).ToString(),
+            Size = r.Size.GetValueOrDefault(0).ToString(),
+        }).ToList() ?? new List<TorrentInfo>();
     }
 
     private async Task Login()

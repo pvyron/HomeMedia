@@ -15,7 +15,7 @@ public sealed class TorrentSearchParams
     public TorrentSearchResultLimitEnum ResultsLimit { get; set; } = TorrentSearchResultLimitEnum.Min25;
     public TorrentSearchResultFormatEnum ResultsFormat { get; set; } = TorrentSearchResultFormatEnum.Extended;
 
-    public string AsQueryString()
+    public string AsQueryStringRarbg()
     {
         var stringBuilder = new StringBuilder();
 
@@ -40,5 +40,10 @@ public sealed class TorrentSearchParams
             stringBuilder.Append($"&ranked=0");
 
         return stringBuilder.ToString();
+    }
+
+    public string AsQueryStringRyuk()
+    {
+        return Name;
     }
 }
