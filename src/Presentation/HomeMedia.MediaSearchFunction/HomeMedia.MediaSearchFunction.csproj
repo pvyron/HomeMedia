@@ -12,11 +12,14 @@
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Application\HomeMedia.Application\HomeMedia.Application.csproj" />
-    <ProjectReference Include="..\src\Infrastructure\HomeMedia.Infrastructure\HomeMedia.Infrastructure.csproj" />
-    <ProjectReference Include="..\src\Presentation\HomeMedia.Contracts\HomeMedia.Contracts.csproj" />
+    <ProjectReference Include="..\..\Application\HomeMedia.Application\HomeMedia.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\HomeMedia.Infrastructure\HomeMedia.Infrastructure.csproj" />
+    <ProjectReference Include="..\HomeMedia.Contracts\HomeMedia.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

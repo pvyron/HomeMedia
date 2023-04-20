@@ -2,6 +2,7 @@
 using HomeMedia.Application.Torrents.Models;
 using HomeMedia.Infrastructure.Torrents.Dto;
 using HomeMedia.Models.Torrents;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,13 @@ using System.Threading.Tasks;
 namespace HomeMedia.Infrastructure.Torrents.Services;
 internal sealed class RyukTorrentSearchService : ITorrentSearchService
 {
-    private readonly string _apiUrl = "https://torrents-api.ryukme.repl.co/api/1337x/";
-
+    private readonly string _apiUrl;
     private readonly ILogger<RyukTorrentSearchService> _logger;
     private readonly HttpClient _httpClient;
 
-    public RyukTorrentSearchService(ILogger<RyukTorrentSearchService> logger, IHttpClientFactory httpClientFactory)
+    public RyukTorrentSearchService(ILogger<RyukTorrentSearchService> logger, IConfiguration configuration, IHttpClientFactory httpClientFactory)
     {
+        _apiUrl = configuration.GetRequiredSection("TorrentSearch:ApiUrl")!.Value!;
         _logger = logger;
         _httpClient = httpClientFactory.CreateClient();
     }

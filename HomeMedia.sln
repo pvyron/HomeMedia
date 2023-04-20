@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.PiProxy", "src\Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.MobileApp", "src\Presentation\HomeMedia.MobileApp\HomeMedia.MobileApp.csproj", "{DE68771A-BAEF-4B3A-BF5A-4A104F6FB557}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeMedia.MediaSearchFunction", "HomeMedia.MediaSearchFunction\HomeMedia.MediaSearchFunction.csproj", "{61C9528A-7B63-44C4-9B4F-2A5FFD269D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.MediaSearchFunction", "src\Presentation\HomeMedia.MediaSearchFunction\HomeMedia.MediaSearchFunction.csproj", "{18330F0E-EC1C-426B-8DB6-2DEC796CD649}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +66,10 @@ Global
 		{DE68771A-BAEF-4B3A-BF5A-4A104F6FB557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE68771A-BAEF-4B3A-BF5A-4A104F6FB557}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE68771A-BAEF-4B3A-BF5A-4A104F6FB557}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{61C9528A-7B63-44C4-9B4F-2A5FFD269D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61C9528A-7B63-44C4-9B4F-2A5FFD269D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61C9528A-7B63-44C4-9B4F-2A5FFD269D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61C9528A-7B63-44C4-9B4F-2A5FFD269D05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18330F0E-EC1C-426B-8DB6-2DEC796CD649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18330F0E-EC1C-426B-8DB6-2DEC796CD649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18330F0E-EC1C-426B-8DB6-2DEC796CD649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18330F0E-EC1C-426B-8DB6-2DEC796CD649}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,7 +85,7 @@ Global
 		{99AE9CB9-DDED-4E72-942A-AFEC34E958A2} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
 		{81D6B107-D187-4CA9-8755-17BA20BEAE47} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
 		{DE68771A-BAEF-4B3A-BF5A-4A104F6FB557} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
-		{61C9528A-7B63-44C4-9B4F-2A5FFD269D05} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
+		{18330F0E-EC1C-426B-8DB6-2DEC796CD649} = {99F473C6-493C-4F6B-A1CC-E83DBDB5A4FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72CB8909-8D36-4CD5-8275-A0433E06E63F}
