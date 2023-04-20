@@ -1,4 +1,6 @@
 using System.Net;
+using System.Text.Json;
+using Azure.Core.Serialization;
 using HomeMedia.Application.Torrents.Interfaces;
 using HomeMedia.Contracts.Torrents;
 using Microsoft.Azure.Functions.Worker;
@@ -11,8 +13,13 @@ public class SearchTorrent
 {
     private readonly ILogger _logger;
     private readonly ITorrentSearchService _torrentSearchService;
+    private readonly JsonSerializerOptions _serializer = new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNameCaseInsensitive = false,
+    };
 
-    public SearchTorrent(ILoggerFactory loggerFactory, ITorrentSearchService torrentSearchService)
+public SearchTorrent(ILoggerFactory loggerFactory, ITorrentSearchService torrentSearchService)
     {
         _logger = loggerFactory.CreateLogger<SearchTorrent>();
         _torrentSearchService = torrentSearchService;
@@ -23,7 +30,7 @@ public class SearchTorrent
     {
         try
         {
-            var requestModel = await System.Text.Json.JsonSerializer.DeserializeAsync<TorrentsSearchRequestModel>(req.Body);
+            var requestModel = await JsonSerializer.DeserializeAsync<TorrentsSearchRequestModel>(req.Body, _serializer);
 
             if (requestModel is null)
             {
@@ -44,13 +51,17 @@ public class SearchTorrent
                 Seeders = t.Seeders,
                 Size = t.Size,
                 SizeText = t.Size
-            }));
+            }), new JsonObjectSerializer(_serializer));
 
             return response;
         }
         catch (Exception ex)
         {
-            return req.CreateResponse(HttpStatusCode.BadRequest);
+            var response = req.CreateResponse(HttpStatusCode.BadRequest);
+
+            await response.WriteStringAsync(ex.Message);
+
+            return response;
         }
     }
 }
