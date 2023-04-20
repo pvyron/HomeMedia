@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "HomeMedia.MediaSearchFunction": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7027",
+      "launchBrowser": false
+    }
+  }
+}
