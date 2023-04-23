@@ -24,6 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1C41E9FD-0839-4DD3-8CFE-A8A86B4C15BE}"
 	ProjectSection(SolutionItems) = preProject
 		docs\Resources.txt = docs\Resources.txt
+		Roadmap.md = Roadmap.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.Contracts", "src\Presentation\HomeMedia.Contracts\HomeMedia.Contracts.csproj", "{99AE9CB9-DDED-4E72-942A-AFEC34E958A2}"
