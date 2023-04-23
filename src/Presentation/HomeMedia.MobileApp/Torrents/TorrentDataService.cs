@@ -72,7 +72,7 @@ public sealed class TorrentDataService : ITorrentDataService
             var responseContent = await response.Content.ReadAsStringAsync();
             var torrents = JsonSerializer.Deserialize<List<TorrentsSearchResponseModel>>(responseContent, _serializerOptions);
 
-            return torrents.Select(t => new TorrentModel
+            return new Result<IEnumerable<TorrentModel>>(torrents.Select(t => new TorrentModel
             {
                 Category = t.Category,
                 Download = t.Download,
@@ -80,7 +80,7 @@ public sealed class TorrentDataService : ITorrentDataService
                 Seeders = t.Seeders,
                 Size = t.Size,
                 SizeText = t.SizeText
-            }).ToHashSet();
+            }));
         }
         catch (Exception ex)
         {

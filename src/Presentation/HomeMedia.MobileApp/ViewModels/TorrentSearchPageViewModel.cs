@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HomeMedia.MobileApp.Torrents;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 namespace HomeMedia.MobileApp.ViewModels;
 public sealed class TorrentSearchPageViewModel : INotifyPropertyChanged, INotifyPropertyChanging
 {
-	private string _searchText;
+	private string _searchText = "";
 
 	public string SearchText
 	{
@@ -21,6 +23,25 @@ public sealed class TorrentSearchPageViewModel : INotifyPropertyChanged, INotify
         }
 	}
 
-	public event PropertyChangedEventHandler PropertyChanged;
+	bool _searching = false;
+
+	public bool Searching
+	{
+        get => _searching;
+        set
+        {
+            PropertyChanging?.Invoke(this, new System.ComponentModel.PropertyChangingEventArgs(nameof(Searching)));
+            PropertyChanging?.Invoke(this, new System.ComponentModel.PropertyChangingEventArgs(nameof(NotSearching)));
+            _searching = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Searching)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotSearching)));
+        }
+    }
+
+    public bool NotSearching => !Searching;
+
+    public ObservableCollection<TorrentModel> Torrents { get; set; } = new();
+
+    public event PropertyChangedEventHandler PropertyChanged;
     public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
 }
