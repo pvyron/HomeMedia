@@ -1,40 +1,39 @@
-name: "Publish External Contracts NuGet package"
-
-on:
- push:
-  tags:
-   - 'v*'
-
+name: Publish External Contracts NuGet package
+'on':
+  push:
+    tags:
+      - v*
 env:
- PROJECT_PATH: 'src/Presentation/HomeMedia.Contracts/HomeMedia.Contracts.csproj'
- PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
- PACKAGE_SOURCE: 'https://nuget.pkg.github.com/pvyron/index.json'
-
+  PROJECT_PATH: src/Presentation/HomeMedia.Contracts/HomeMedia.Contracts.csproj
+  PACKAGE_OUTPUT_DIRECTORY: '${{ github.workspace }}\output'
+  PACKAGE_SOURCE: 'https://nuget.pkg.github.com/pvyron/index.json'
 jobs:
- deploy:
-  name: 'Deploy'
-  runs-on: windows-latest
-  steps:
-   name: 'Checkout'
-   uses: actions/checkout@v2
-   
-   name: 'Install dotnet'
-   uses: actions/setup-dotnet@v1
-   with:
-    dotnet-version: '7.x'
-
-   name: 'Retore packages'
-   run: dotnet restore ${{ env.PROJECT_PATH }}
-
-   name: 'Build project'
-   run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
-
-   name: 'GetVersion'
-   id: version
-   uses: battila7/get-version-action@v2
-
-   name: 'Pack project'
-   run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --configuration Release --include-symbols -p:PackageVersion=${{ steps.version.output.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
-
-   name: 'Push package'
-   run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_FEED_KEY }} -s ${{ env.PACKAGE_SOURCE }}
+  deploy:
+    name: Deploy
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.x
+      - name: Retore packages
+        run: 'dotnet restore ${{ env.PROJECT_PATH }}'
+      - name: Build project
+        run: >-
+          dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration
+          Release
+      - name: GetVersion
+        id: version
+        uses: battila7/get-version-action@v2
+      - name: Pack project
+        run: >-
+          dotnet pack ${{ env.PROJECT_PATH }} --no-restore --configuration
+          Release --include-symbols -p:PackageVersion=${{
+          steps.version.output.version-without-v }} --output ${{
+          env.PACKAGE_OUTPUT_DIRECTORY }}
+      - name: Push package
+        run: >-
+          dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{
+          secrets.NUGET_FEED_KEY }} -s ${{ env.PACKAGE_SOURCE }}
