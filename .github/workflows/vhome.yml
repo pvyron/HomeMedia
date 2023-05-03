@@ -1,4 +1,4 @@
-name: Build and deploy .NET Core application to Web App vhome
+name: Build and deploy vhome external API
 on:
   push:
     branches:
