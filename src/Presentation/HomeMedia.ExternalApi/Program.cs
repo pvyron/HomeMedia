@@ -1,34 +1,30 @@
+using HomeMedia.Application.Torrents.Interfaces;
+using HomeMedia.Contracts.Torrents;
+using HomeMedia.ExternalApi;
+using HomeMedia.ExternalApi.Torrents;
+using HomeMedia.Infrastructure;
+using Mediator;
+using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var services = builder.Services;
+services.AddHttpClient();
+services.AddTorrents(builder.Configuration);
+services.AddJsonOptions();
+services.AddMediator(options =>
+{
+    options.ServiceLifetime = ServiceLifetime.Transient;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapPost("api/torrents/search", async ([FromBody] TorrentsSearchRequestModel requestModel, [FromServices] ISender mediator, CancellationToken cancellationToken) => await mediator.Send(new SearchTorrentsQuery(requestModel), cancellationToken));
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
-
-app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+await app.RunAsync();

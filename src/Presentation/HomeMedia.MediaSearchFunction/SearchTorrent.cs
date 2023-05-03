@@ -39,15 +39,15 @@ public SearchTorrent(ILoggerFactory loggerFactory, ITorrentSearchService torrent
                 return req.CreateResponse(HttpStatusCode.NoContent);
             }
 
-            var torrents = await _torrentSearchService.QueryTorrentDataAsync(new Application.Torrents.Models.TorrentSearchParams { Name = requestModel.Query });
+            var torrents = await _torrentSearchService.QueryTorrentDataAsync(new Application.Torrents.Models.TorrentSearchParams { Name = requestModel.Query }, CancellationToken.None).ToListAsync();
 
             var response = req.CreateResponse(HttpStatusCode.OK);
 
             await response.WriteAsJsonAsync(torrents.Select(t => new TorrentsSearchResponseModel
             {
                 Category = t.Category,
-                Download = t.Download,
-                Filename = t.Filename,
+                Download = t.MagnetLink,
+                Filename = t.Name,
                 Seeders = t.Seeders,
                 Size = t.Size,
                 SizeText = t.Size

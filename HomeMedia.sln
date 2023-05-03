@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.MobileApp", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.MediaSearchFunction", "src\Presentation\HomeMedia.MediaSearchFunction\HomeMedia.MediaSearchFunction.csproj", "{18330F0E-EC1C-426B-8DB6-2DEC796CD649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeMedia.ExternalApi", "src\Presentation\HomeMedia.ExternalApi\HomeMedia.ExternalApi.csproj", "{8C42142C-7B13-447C-ACE1-6564DD37F0CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeMedia.ExternalApi", "src\Presentation\HomeMedia.ExternalApi\HomeMedia.ExternalApi.csproj", "{8C42142C-7B13-447C-ACE1-6564DD37F0CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

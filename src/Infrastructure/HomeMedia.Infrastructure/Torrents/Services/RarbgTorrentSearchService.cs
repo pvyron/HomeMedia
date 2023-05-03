@@ -4,6 +4,7 @@ using HomeMedia.Infrastructure.Torrents.Dto;
 using HomeMedia.Infrastructure.Torrents.Models;
 using HomeMedia.Models.Torrents;
 using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -51,8 +52,8 @@ internal sealed class RarbgTorrentSearchService : ITorrentSearchService
         new TorrentInfo
         {
             Category = r.Category ?? "",
-            Download = r.Download ?? "",
-            Filename = r.Title ?? "",
+            MagnetLink = r.Download ?? "",
+            Name = r.Title ?? "",
             Seeders = r.Seeders.GetValueOrDefault(0).ToString(),
             Size = r.Size.GetValueOrDefault(0).ToString(),
         }).ToList() ?? new List<TorrentInfo>();
@@ -83,6 +84,13 @@ internal sealed class RarbgTorrentSearchService : ITorrentSearchService
         var responseObject = JsonSerializer.Deserialize<T>(responseContent, _serializerOptions);
 
         return responseObject;
+    }
+
+    async IAsyncEnumerable<TorrentInfo> ITorrentSearchService.QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams, [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        await Task.CompletedTask;
+        yield break;
+        throw new NotImplementedException();
     }
 
     readonly JsonSerializerOptions _serializerOptions = new()

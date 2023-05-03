@@ -59,6 +59,7 @@ public partial class MainPage : ContentPage
 
     async void OnTorrentSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        await Task.CompletedTask;
         Debug.WriteLine("Torrent selected");
     }
 }

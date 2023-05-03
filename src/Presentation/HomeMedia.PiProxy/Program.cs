@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHttpClient();
-builder.Services.AddTorrents();
+builder.Services.AddTorrents(builder.Configuration);
 
 var app = builder.Build();
 
@@ -20,23 +20,23 @@ app.MapGet("/", () => "Hello world");
 
 app.MapGet("/test", () => "Working");
 
-app.MapPost("/api/torrents/search", async ([FromServices] ITorrentSearchService torrentSearchService, [FromBody] TorrentsSearchRequestModel requestModel) =>
-{
-    var infos = await torrentSearchService.QueryTorrentDataAsync(new HomeMedia.Application.Torrents.Models.TorrentSearchParams
-    {
-        Name = requestModel.Query
-    });
+//app.MapPost("/api/torrents/search", async ([FromServices] ITorrentSearchService torrentSearchService, [FromBody] TorrentsSearchRequestModel requestModel) =>
+//{
+//    var infos = await torrentSearchService.QueryTorrentDataAsync(new HomeMedia.Application.Torrents.Models.TorrentSearchParams
+//    {
+//        Name = requestModel.Query
+//    }, CancellationToken.None).ToListAsync();
 
-    return infos.Select(info => new TorrentsSearchResponseModel
-    {
-        Category = info.Category,
-        Download = info.Download,
-        Filename = info.Filename,
-        Seeders = info.Seeders,
-        Size = info.Size,
-        SizeText = info.Size //((long)info.Size).GetBytesReadable()
-    });
-});
+//    return infos.Select(info => new TorrentsSearchResponseModel
+//    {
+//        Category = info.Category,
+//        Download = info.MagnetLink,
+//        Filename = info.Name,
+//        Seeders = info.Seeders,
+//        Size = info.Size,
+//        SizeText = info.Size //((long)info.Size).GetBytesReadable()
+//    });
+//});
 
 Console.WriteLine("Before build");
 

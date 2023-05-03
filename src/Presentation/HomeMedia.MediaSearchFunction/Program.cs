@@ -14,7 +14,7 @@ var host = new HostBuilder()
     .ConfigureServices((builder, services) =>
     {
         services.AddHttpClient();
-        services.AddTorrents();
+        services.AddTorrents(builder.Configuration);
     })
     .Build();
 

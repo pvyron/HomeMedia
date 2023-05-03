@@ -6,4 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LanguageExt.Core" Version="4.4.3" />
+    <PackageReference Include="Mediator.Abstractions" Version="2.2.0-preview.2" />
+    <PackageReference Include="Mediator.SourceGenerator" Version="2.2.0-preview.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0-preview.3.23174.8" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\HomeMedia.Infrastructure\HomeMedia.Infrastructure.csproj" />
+    <ProjectReference Include="..\HomeMedia.Contracts\HomeMedia.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

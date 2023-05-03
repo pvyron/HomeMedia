@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -26,7 +27,7 @@ internal sealed class RyukTorrentSearchService : ITorrentSearchService
         _httpClient = httpClientFactory.CreateClient();
     }
 
-    public async Task<List<TorrentInfo>> QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams)
+    public async Task<List<TorrentInfo>> QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams, CancellationToken cancellationToken)
     {
 
         _logger.LogInformation("Request {search}", torrentSearchParams);
@@ -48,8 +49,8 @@ internal sealed class RyukTorrentSearchService : ITorrentSearchService
             new TorrentInfo
             {
                 Category = r.Category ?? "",
-                Download = r.Magnet ?? "",
-                Filename = r.Name ?? "",
+                MagnetLink = r.Magnet ?? "",
+                Name = r.Name ?? "",
                 Seeders = r.Seeders ?? "0",
                 Size = r.Size ?? "",
             }).ToList() ?? new List<TorrentInfo>();
@@ -59,6 +60,14 @@ internal sealed class RyukTorrentSearchService : ITorrentSearchService
             _logger.LogError("{Exception} was thrown after request to {url} with {search params}", ex, _apiUrl, torrentSearchParams);
             throw;
         }
+    }
+
+    async IAsyncEnumerable<TorrentInfo> ITorrentSearchService.QueryTorrentDataAsync(TorrentSearchParams torrentSearchParams, [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+
+        await Task.CompletedTask;
+        yield break;
+        throw new NotImplementedException();
     }
 
     readonly JsonSerializerOptions _serializerOptions = new()

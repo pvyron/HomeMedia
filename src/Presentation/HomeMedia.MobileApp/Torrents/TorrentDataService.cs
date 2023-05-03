@@ -55,7 +55,7 @@ public sealed class TorrentDataService : ITorrentDataService
 
             var requestModel = new TorrentsSearchRequestModel
             {
-                Query = query
+                Name = query
             };
 
             var jsonModel = JsonSerializer.Serialize(requestModel, _serializerOptions);
