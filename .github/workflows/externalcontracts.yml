@@ -1,5 +1,8 @@
 name: Publish External Contracts NuGet package
-on: 'push'
+on:
+  push:
+    branches:
+    - master
 env:
   PROJECT_PATH: src/Presentation/HomeMedia.Contracts/HomeMedia.Contracts.csproj
   PACKAGE_OUTPUT_DIRECTORY: '${{ github.workspace }}\output'
