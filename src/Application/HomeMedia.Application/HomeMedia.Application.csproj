@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Torrents\Exceptions\" />
+    <Folder Include="Torrents\Extensions\" />
   </ItemGroup>
 
 </Project>

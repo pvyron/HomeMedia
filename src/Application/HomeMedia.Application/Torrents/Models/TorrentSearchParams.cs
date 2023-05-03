@@ -1,6 +1,4 @@
-﻿using HomeMedia.Application.Torrents.Enums;
-using HomeMedia.Application.Torrents.Extensions;
-using System.Text;
+﻿using System.Text;
 
 namespace HomeMedia.Application.Torrents.Models;
 public sealed class TorrentSearchParams

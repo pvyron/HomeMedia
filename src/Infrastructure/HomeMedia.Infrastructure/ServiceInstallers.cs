@@ -11,8 +11,14 @@ public static class ServiceInstallers
     {
         services.AddOptions<VHomeTorrentSearchServiceOptions>().Bind(configuration.GetSection(VHomeTorrentSearchServiceOptions.SectionName));
 
+        services.Configure<ExternalTorrentQueueServiceOptions>(options =>
+        {
+            options.ConnectionString = configuration.GetConnectionString("ExternalTorrentQueue")!;
+            options.QueueName = configuration.GetValue<string>("ExternalTorrentQueue:Name")!;
+        });
+
         services.AddSingleton<ITorrentSearchService, VHomeTorrentSearchService>();
-        services.AddSingleton<ITorrentClientService, TorrentClientService>();
+        services.AddSingleton<IExternalTorrentQueueService, ExternalTorrentQueueService>();
 
         return services;
     }
