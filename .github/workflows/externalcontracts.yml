@@ -37,3 +37,4 @@ jobs:
         run: >-
           dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{
           secrets.NUGET_FEED_KEY }} -s ${{ env.PACKAGE_SOURCE }}
+
