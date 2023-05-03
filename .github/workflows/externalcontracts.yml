@@ -1,8 +1,5 @@
 name: Publish External Contracts NuGet package
-'on':
-  push:
-    tags:
-      - v*
+on: 'push'
 env:
   PROJECT_PATH: src/Presentation/HomeMedia.Contracts/HomeMedia.Contracts.csproj
   PACKAGE_OUTPUT_DIRECTORY: '${{ github.workspace }}\output'
@@ -24,14 +21,10 @@ jobs:
         run: >-
           dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration
           Release
-      - name: GetVersion
-        id: version
-        uses: battila7/get-version-action@v2
       - name: Pack project
         run: >-
           dotnet pack ${{ env.PROJECT_PATH }} --no-restore --configuration
-          Release --include-symbols -p:PackageVersion=${{
-          steps.version.output.version-without-v }} --output ${{
+          Release --include-symbols --output ${{
           env.PACKAGE_OUTPUT_DIRECTORY }}
       - name: Push package
         run: >-
