@@ -25,6 +25,9 @@ public sealed class SearchTorrentsQueryHandler : IRequestHandler<SearchTorrentsQ
 
     public async ValueTask<IResult> Handle(SearchTorrentsQuery request, CancellationToken cancellationToken)
     {
+        if (request.Model.Name.Length < 3)
+            return Results.BadRequest("Torrent title must be at least 2 characters long");
+
         var query = request.Model.Name;
 
         query += " ";
@@ -34,6 +37,18 @@ public sealed class SearchTorrentsQueryHandler : IRequestHandler<SearchTorrentsQ
 
         if (request.Model.Episode is not null)
             query += $"E{request.Model.Episode?.ToString("D2")}";
+
+        query.Trim();
+        query += " ";
+
+        if (request.Model.OnlyHdr.GetValueOrDefault(false))
+            query += "HDR";
+
+        query.Trim();
+        query += " ";
+
+        if (request.Model.OnlyWeb.GetValueOrDefault(false))
+            query += "WEB";
 
         query.Trim();
         query += " ";
@@ -55,18 +70,6 @@ public sealed class SearchTorrentsQueryHandler : IRequestHandler<SearchTorrentsQ
             default:
                 break;
         }
-
-        query.Trim();
-        query += " ";
-
-        if (request.Model.OnlyHdr.GetValueOrDefault(false))
-            query += "HDR";
-
-        query.Trim();
-        query += " ";
-
-        if (request.Model.OnlyWeb.GetValueOrDefault(false))
-            query += "WEB";
 
         query.Trim();
 
