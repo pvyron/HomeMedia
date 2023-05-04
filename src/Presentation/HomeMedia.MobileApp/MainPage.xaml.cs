@@ -2,48 +2,51 @@
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Diagnostics;
-using HomeMedia.MobileApp.ViewModels;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using HomeMedia.MobileApp.ViewModels;
 
 namespace HomeMedia.MobileApp;
 
-public partial class MainPage : ContentPage
+public partial class MainPage : ContentPage, INotifyPropertyChanged
 {
     private readonly ITorrentDataService _torrentDataService;
-    private readonly TorrentSearchPageViewModel _viewModel;
 
     public MainPage(ITorrentDataService torrentDataService)
     {
-        InitializeComponent();
-
-        _viewModel = new TorrentSearchPageViewModel();
         _torrentDataService = torrentDataService;
 
-        BindingContext = _viewModel;
+        BindingContext = this;
+        
+        InitializeComponent();
     }
 
     async void OnSearchClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(_viewModel.SearchText))
+        if (string.IsNullOrWhiteSpace(SearchText))
         {
             await DisplayAlert("Error", "Must type name", "Ok");
             return;
         }
 
-        _viewModel.Searching = true;
-
+        Searching = true;
+        Debug.WriteLine("Send request");
         try
         {
-            var result = await _torrentDataService.SearchTorrentsAsync(_viewModel.SearchText);
+            var result = await _torrentDataService.SearchTorrentsAsync(SearchText);
 
             result.IfSucc(succ =>
             {
-                _viewModel.Torrents = new();
+                Torrents = new();
 
+                var i = 1;
                 foreach (var torrent in succ)
                 {
-                    _viewModel.Torrents.Add(torrent);
+                    Torrents.Add(new TorrentSearchResultViewModel(i, torrent));
+                    i++;
                 }
+
+                SearchResultsList.ItemsSource = Torrents;
             });
             result.IfFail(fail => Debug.WriteLine(fail.Message));
         }
@@ -52,8 +55,9 @@ public partial class MainPage : ContentPage
             await DisplayAlert("Warning", ex.Message, "Ok");
         }
         finally 
-        { 
-            _viewModel.Searching = false; 
+        {
+            Debug.WriteLine("Request done");
+            Searching = false; 
         }
     }
 
@@ -64,3 +68,54 @@ public partial class MainPage : ContentPage
     }
 }
 
+public partial class MainPage
+{
+    private string _searchText = "";
+
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            _searchText = value;
+            OnPropertyChanged(nameof(SearchText));
+        }
+    }
+
+    bool _searching = false;
+
+    public bool Searching
+    {
+        get => _searching;
+        set
+        {
+            _searching = value;
+            OnPropertyChanged(nameof(Searching));
+            OnPropertyChanged(nameof(NotSearching));
+        }
+    }
+
+    public bool NotSearching => !Searching;
+
+    public ObservableCollection<TorrentSearchResultViewModel> Torrents { get; set; } = new ObservableCollection<TorrentSearchResultViewModel>()
+    {
+        new TorrentSearchResultViewModel
+        {
+            Id = 1,
+            Category = "TestCategory",
+            Filename = "Test Name!!",
+            Seeders = "",
+            Size = "",
+            IsMagnet = true,
+        },
+        new TorrentSearchResultViewModel
+        {
+            Id = 2,
+            Category = "TestCategory2",
+            Filename = "Test Name@@",
+            Seeders = "",
+            Size = "",
+            IsMagnet = false
+        }
+    };
+}

@@ -9,28 +9,63 @@
         <Entry Grid.Column="0" Grid.Row="0" Text="{Binding SearchText}" Placeholder="Torrent Name" />
         <Button Grid.Column="1" Grid.Row="0" CornerRadius="50" Text="Search" Margin="0, 0, 0, 10" Pressed="OnSearchClicked" IsEnabled="{Binding NotSearching}"/>
 
-        <CollectionView SelectionMode="Single"
-                        SelectionChanged="OnTorrentSelectionChanged"
-                        Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
-                        ItemsSource="{Binding Torrents}"
-                        IsVisible="{Binding NotSearching}">
-
-            <CollectionView.ItemTemplate>
+        <ListView Grid.Column="0" 
+                  Grid.ColumnSpan="2"
+                  Grid.Row="1"
+                  x:Name="SearchResultsList"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Torrents}"
+                  HasUnevenRows="True" >
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *, Auto" BackgroundColor="AliceBlue">
-                        
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Filename}" FontSize="Subtitle"/>
+                    <ViewCell>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding SizeText}" FontSize="Small" />
+                            <Label Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="0"
+                                   Text="{Binding Filename}"
+                                   FontAttributes="Bold" />
 
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Seeders}" FontSize="Small" Padding="25, 0, 0, 0" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="{Binding SizeText}"
+                                   VerticalOptions="Start" />
 
-                            <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="{Binding Seeders}" FontSize="Micro" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
-                        
-                    </Grid>
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding SeedsText}"
+                                   VerticalOptions="Start" />
+
+                            <Button Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="3"
+                                    Text="ℹ️"
+                                    CornerRadius="100"
+                                    Margin="5" />
+
+                            <Button Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="4"
+                                    Text="🧲"
+                                    CornerRadius="100"
+                                    Margin="5" />
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
     
 

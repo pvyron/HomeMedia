@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace HomeMedia.MobileApp.Torrents;
 public interface ITorrentDataService
 {
-    ValueTask<Result<IEnumerable<TorrentModel>>> SearchTorrentsAsync(string query);
+    ValueTask<Result<IEnumerable<TorrentModel>>> SearchTorrentsAsync(string title, int page = 1, int? season = null, int? episode = null, Resolution resolution = Resolution.Any, bool? hdr = null, bool? web = null);
     ValueTask<Result<Unit>> DownloadTorrentAsync(string magnetLink);
 }
 
@@ -27,14 +27,14 @@ public sealed class TorrentDataService : ITorrentDataService
 
     public TorrentDataService()
     {
-        _searchUrl = "https://pvmediasearch.azurewebsites.net/api/SearchMedia?code=cAQorMoosddW_Onmzi7gUTg89b9sq0_ZGT6GeTEfUNE5AzFuqmohrQ==";
+        _searchUrl = "https://vhome.azurewebsites.net/api/torrents/search";
         //_searchUrl = "http://localhost:7027/api/SearchMedia";
         _httpClient = new HttpClient();
 
         _serializerOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            PropertyNameCaseInsensitive = false,
+            PropertyNameCaseInsensitive = false
         };
     }
 
@@ -44,7 +44,7 @@ public sealed class TorrentDataService : ITorrentDataService
         throw new NotImplementedException();
     }
 
-    public async ValueTask<Result<IEnumerable<TorrentModel>>> SearchTorrentsAsync(string query)
+    public async ValueTask<Result<IEnumerable<TorrentModel>>> SearchTorrentsAsync(string title, int page = 1, int? season = null, int? episode = null, Resolution resolution = Resolution.Any, bool? hdr = null, bool? web = null)
     {
         try
         {
@@ -55,12 +55,18 @@ public sealed class TorrentDataService : ITorrentDataService
 
             var requestModel = new TorrentsSearchRequestModel
             {
-                Name = query
+                Name = title,
+                Resolution = resolution,
+                Episode = episode,
+                OnlyHdr = hdr,
+                OnlyWeb = web,
+                Page = page,
+                Season = season
             };
 
-            var jsonModel = JsonSerializer.Serialize(requestModel, _serializerOptions);
+            //var jsonModel = JsonSerializer.Serialize(requestModel, _serializerOptions);
 
-            var requestContent = new StringContent(jsonModel, Encoding.UTF8, "application/json");
+            var requestContent = JsonContent.Create(requestModel, options: _serializerOptions);
 
             var response = await _httpClient.PostAsync(_searchUrl, requestContent);
 
