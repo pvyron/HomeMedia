@@ -39,7 +39,7 @@ public SearchTorrent(ILoggerFactory loggerFactory, ITorrentSearchService torrent
                 return req.CreateResponse(HttpStatusCode.NoContent);
             }
 
-            var torrents = await _torrentSearchService.QueryTorrentDataAsync(new Application.Torrents.Models.TorrentSearchParams { Name = requestModel.Query }, CancellationToken.None).ToListAsync();
+            var torrents = await _torrentSearchService.QueryTorrentDataAsync(new Application.Torrents.Models.TorrentSearchParams { QueryString = requestModel.Name }, CancellationToken.None).ToListAsync();
 
             var response = req.CreateResponse(HttpStatusCode.OK);
 
