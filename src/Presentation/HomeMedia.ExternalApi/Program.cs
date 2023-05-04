@@ -40,7 +40,7 @@ var errors = new List<string>() { "I am working" };
 
 app.MapGet("/", () => Results.Ok(errors));
 
-app.MapGet("/privacy", () => Results.Ok(PrivacyPolicy.POLICY));
+app.MapGet("/privacy", () => Results.Text(PrivacyPolicy.POLICY, "text/html"));
 
 app.MapPost("api/torrents/search", async ([FromBody] TorrentsSearchRequestModel requestModel, [FromServices] ISender mediator, CancellationToken cancellationToken) =>
 {
