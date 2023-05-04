@@ -79,13 +79,21 @@ public sealed class SearchTorrentsQueryHandler : IRequestHandler<SearchTorrentsQ
             Page = 1
         };
 
-        var results = new List<TorrentInfo>();
+        var results = new List<TorrentsSearchResponseModel>();
         await foreach (var torrent in _torrentSearchService.QueryTorrentDataAsync(searchParams, cancellationToken))
         {
             if (!torrent.MagnetLink.StartsWith("magnet:"))
                 continue;
 
-            results.Add(torrent);
+            results.Add(new TorrentsSearchResponseModel
+            {
+                Category = torrent.Category,
+                Download = torrent.MagnetLink,
+                Filename = torrent.Name,
+                Seeders = torrent.Seeders,
+                Size = torrent.Size,
+                SizeText = torrent.Size
+            });
         }
 
         return Results.Json(results, _jsonSerializerOptions);
