@@ -14,7 +14,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.0.0.5</Version>
+    <Version>1.0.0.6</Version>
   </PropertyGroup>
 
 </Project>
