@@ -10,6 +10,8 @@ namespace HomeMedia.MobileApp.ViewModels;
 
 public sealed class TorrentSearchResultViewModel
 {
+    public required TorrentModel Torrent;
+
     public TorrentSearchResultViewModel()
     {
         
@@ -19,6 +21,7 @@ public sealed class TorrentSearchResultViewModel
     public TorrentSearchResultViewModel(int id, TorrentModel torrentModel)
     {
         Id = id;
+        Torrent = torrentModel;
         Filename = torrentModel.Filename;
         Category = torrentModel.Category;
         Seeders = torrentModel.Seeders;

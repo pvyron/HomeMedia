@@ -61,10 +61,19 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    async void OnTorrentSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void DownloadButton_Clicked(object sender, EventArgs e)
     {
-        await Task.CompletedTask;
-        Debug.WriteLine("Torrent selected");
+        try
+        {
+            var torrwnt = ((sender as Button).BindingContext as TorrentSearchResultViewModel).Torrent;
+
+            var result = await _torrentDataService.DownloadTorrentAsync(torrwnt.Download);
+            result.IfFail(fail => Debug.WriteLine(fail.Message));
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Warning", ex.Message, "Ok");
+        }
     }
 }
 
@@ -97,25 +106,5 @@ public partial class MainPage
 
     public bool NotSearching => !Searching;
 
-    public ObservableCollection<TorrentSearchResultViewModel> Torrents { get; set; } = new ObservableCollection<TorrentSearchResultViewModel>()
-    {
-        new TorrentSearchResultViewModel
-        {
-            Id = 1,
-            Category = "TestCategory",
-            Filename = "Test Name!!",
-            Seeders = "",
-            Size = "",
-            IsMagnet = true,
-        },
-        new TorrentSearchResultViewModel
-        {
-            Id = 2,
-            Category = "TestCategory2",
-            Filename = "Test Name@@",
-            Seeders = "",
-            Size = "",
-            IsMagnet = false
-        }
-    };
+    public ObservableCollection<TorrentSearchResultViewModel> Torrents { get; set; } = new();
 }

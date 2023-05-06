@@ -22,12 +22,14 @@ public interface ITorrentDataService
 public sealed class TorrentDataService : ITorrentDataService
 {
     private readonly string _searchUrl;
+    private readonly string _downloadUrl;
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _serializerOptions;
 
     public TorrentDataService()
     {
         _searchUrl = "https://vhome.azurewebsites.net/api/torrents/search";
+        _downloadUrl = "https://vhome.azurewebsites.net/api/torrents/download";
         //_searchUrl = "http://localhost:7027/api/SearchMedia";
         _httpClient = new HttpClient();
 
@@ -40,8 +42,36 @@ public sealed class TorrentDataService : ITorrentDataService
 
     public async ValueTask<Result<Unit>> DownloadTorrentAsync(string magnetLink)
     {
-        await Task.CompletedTask;
-        throw new NotImplementedException();
+        try
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                return new Result<Unit>(new Exception("No internet access"));
+            }
+
+            var requestModel = new TorrentDownloadRequestModel
+            {
+                MagnetLink = magnetLink,
+                SaveLocation = "Series"
+            };
+
+            //var jsonModel = JsonSerializer.Serialize(requestModel, _serializerOptions);
+
+            var requestContent = JsonContent.Create(requestModel, options: _serializerOptions);
+
+            var response = await _httpClient.PostAsync(_downloadUrl, requestContent);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return new Result<Unit>(new Exception($"{response.StatusCode} - {response.ReasonPhrase}"));
+            }
+
+            return Unit.Default;
+        }
+        catch (Exception ex)
+        {
+            return new Result<Unit>(ex);
+        }
     }
 
     public async ValueTask<Result<IEnumerable<TorrentModel>>> SearchTorrentsAsync(string title, int page = 1, int? season = null, int? episode = null, Resolution resolution = Resolution.Any, bool? hdr = null, bool? web = null)

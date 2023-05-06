@@ -9,14 +9,14 @@ namespace HomeMedia.MobileApp.Torrents;
 public sealed class TorrentModel
 {
     public required string Filename { get; init; }
-    private string category;
+    private string _category;
     public required string Category
     {
-        get => category;
+        get => _category;
         init
         {
-            isMagnet = value.StartsWith("magnet:");
-            category = value;
+            _isMagnet = value.StartsWith("magnet:");
+            _category = value;
         }
     }
     public required string Download { get; init; }
@@ -24,6 +24,6 @@ public sealed class TorrentModel
     public required string SizeText { get; init; }
     public required string Seeders { get; init; }
 
-    bool isMagnet;
-    public bool IsMagnet() => isMagnet;
+    bool _isMagnet;
+    public bool IsMagnet() => _isMagnet;
 }

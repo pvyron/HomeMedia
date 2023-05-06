@@ -60,7 +60,8 @@
                                     Grid.Column="4"
                                     Text="🧲"
                                     CornerRadius="100"
-                                    Margin="5" />
+                                    Margin="5" 
+                                    Clicked="DownloadButton_Clicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
