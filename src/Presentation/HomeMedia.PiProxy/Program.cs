@@ -1,8 +1,4 @@
-using HomeMedia.Application.Torrents.Interfaces;
-using HomeMedia.Contracts.Torrents;
 using HomeMedia.Infrastructure;
-using HomeMedia.Infrastructure.Tools;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 

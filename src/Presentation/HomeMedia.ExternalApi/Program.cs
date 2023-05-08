@@ -1,28 +1,19 @@
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using HomeMedia.Application.Torrents.Interfaces;
 using HomeMedia.Contracts.Torrents;
 using HomeMedia.ExternalApi;
 using HomeMedia.ExternalApi.Torrents;
 using HomeMedia.Infrastructure;
 using LanguageExt;
 using Mediator;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading;
 
 var builder = WebApplication.CreateBuilder(args);
 
 if (!builder.Environment.IsDevelopment())
 {
-    var keyVaultEndPoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
-
-    if (keyVaultEndPoint is null)
-        throw new ValueIsNullException($"Invalid configuration, missing value for KEYVAULT_ENDPOINT");
-
+    var keyVaultEndPoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT") ?? throw new ValueIsNullException($"Invalid configuration, missing value for KEYVAULT_ENDPOINT");
     var secretClient = new SecretClient(new(keyVaultEndPoint), new DefaultAzureCredential());
 
     builder.Configuration.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
@@ -76,7 +67,7 @@ app.MapPost("api/torrents/download", async ([FromBody] TorrentDownloadRequestMod
 {
     try
     {
-        return await mediator.Send(new DownloadTorrentCommand(requestModel.MagnetLink, requestModel.SaveLocation));
+        return await mediator.Send(new DownloadTorrentCommand(requestModel.MagnetLink, requestModel.SaveLocation), cancellationToken);
     }
     catch (Exception ex)
     {

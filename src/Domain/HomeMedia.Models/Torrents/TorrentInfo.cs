@@ -1,6 +1,4 @@
-﻿using HomeMedia.Application.Torrents.Exceptions;
-
-namespace HomeMedia.Models.Torrents;
+﻿namespace HomeMedia.Models.Torrents;
 public sealed class TorrentInfo
 {
     public required string Name { get; init; }

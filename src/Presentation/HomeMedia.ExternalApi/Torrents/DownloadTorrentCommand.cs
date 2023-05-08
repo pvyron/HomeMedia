@@ -25,7 +25,7 @@ public sealed class DownloadTorrentCommandHandler : IRequestHandler<DownloadTorr
 
             return Results.Ok();
         }
-        catch (Exception ex)
+        catch
         {
             return Results.StatusCode(500);
         }

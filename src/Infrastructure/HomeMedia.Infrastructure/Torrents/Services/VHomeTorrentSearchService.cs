@@ -1,18 +1,11 @@
-﻿using HomeMedia.Application.Torrents.Exceptions;
-using HomeMedia.Application.Torrents.Interfaces;
+﻿using HomeMedia.Application.Torrents.Interfaces;
 using HomeMedia.Application.Torrents.Models;
 using HomeMedia.Infrastructure.Torrents.Dto;
 using HomeMedia.Infrastructure.Torrents.Options;
 using HomeMedia.Models.Torrents;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace HomeMedia.Infrastructure.Torrents.Services;
 internal sealed class VHomeTorrentSearchService : ITorrentSearchService
@@ -34,7 +27,7 @@ internal sealed class VHomeTorrentSearchService : ITorrentSearchService
 
         request.Headers.Add("AuthKey", "1234");
 
-        var response = await _httpClient.SendAsync(request);
+        var response = await _httpClient.SendAsync(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {

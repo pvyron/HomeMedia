@@ -1,6 +1,5 @@
 ﻿using HomeMedia.Application.Torrents.Models;
 using HomeMedia.Models.Torrents;
-using System.Runtime.CompilerServices;
 
 namespace HomeMedia.Application.Torrents.Interfaces;
 public interface ITorrentSearchService

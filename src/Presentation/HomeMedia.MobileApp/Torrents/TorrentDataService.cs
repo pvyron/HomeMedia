@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HomeMedia.Contracts.Torrents;
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+Before:
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -11,6 +14,80 @@ using System.Net.Http.Json;
 using LanguageExt.Common;
 using LanguageExt;
 using System.Diagnostics;
+After:
+using LanguageExt;
+using LanguageExt.Common;
+using System;
+using System.Net.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text.Http;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-windows10.0.19041.0)'
+Before:
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Threading.Tasks;
+using HomeMedia.Contracts.Torrents;
+using System.Net.Http.Json;
+using LanguageExt.Common;
+using LanguageExt;
+using System.Diagnostics;
+After:
+using LanguageExt;
+using LanguageExt.Common;
+using System;
+using System.Net.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text.Http;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-android)'
+Before:
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Threading.Tasks;
+using HomeMedia.Contracts.Torrents;
+using System.Net.Http.Json;
+using LanguageExt.Common;
+using LanguageExt;
+using System.Diagnostics;
+After:
+using LanguageExt;
+using LanguageExt.Common;
+using System;
+using System.Net.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text.Http;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+*/
+using LanguageExt;
+using LanguageExt.Common;
 
 namespace HomeMedia.MobileApp.Torrents;
 public interface ITorrentDataService

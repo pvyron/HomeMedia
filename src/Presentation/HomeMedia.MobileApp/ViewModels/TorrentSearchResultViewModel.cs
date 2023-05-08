@@ -1,10 +1,5 @@
 ﻿using HomeMedia.MobileApp.Torrents;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeMedia.MobileApp.ViewModels;
 
@@ -14,7 +9,7 @@ public sealed class TorrentSearchResultViewModel
 
     public TorrentSearchResultViewModel()
     {
-        
+
     }
 
     [SetsRequiredMembers]

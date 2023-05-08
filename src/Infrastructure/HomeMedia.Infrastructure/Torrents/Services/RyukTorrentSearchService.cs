@@ -4,14 +4,9 @@ using HomeMedia.Infrastructure.Torrents.Dto;
 using HomeMedia.Models.Torrents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace HomeMedia.Infrastructure.Torrents.Services;
 internal sealed class RyukTorrentSearchService : ITorrentSearchService

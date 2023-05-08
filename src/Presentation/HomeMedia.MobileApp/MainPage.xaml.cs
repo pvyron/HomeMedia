@@ -1,10 +1,110 @@
 ﻿using HomeMedia.MobileApp.Torrents;
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+Before:
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Diagnostics;
+After:
+using System.Text.ViewModels;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-windows10.0.19041.0)'
+Before:
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Diagnostics;
+After:
+using System.Text.ViewModels;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-android)'
+Before:
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Diagnostics;
+After:
+using System.Text.ViewModels;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+*/
 using HomeMedia.MobileApp.ViewModels;
+using System.Diagnostics;
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+Before:
+using System.Text.Json;
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+After:
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-windows10.0.19041.0)'
+Before:
+using System.Text.Json;
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+After:
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-android)'
+Before:
+using System.Text.Json;
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+After:
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+*/
+
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+Before:
+using HomeMedia.MobileApp.ViewModels;
+After:
+using HomeMedia.Text.Json.Serialization;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-windows10.0.19041.0)'
+Before:
+using HomeMedia.MobileApp.ViewModels;
+After:
+using HomeMedia.Text.Json.Serialization;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-android)'
+Before:
+using HomeMedia.MobileApp.ViewModels;
+After:
+using HomeMedia.Text.Json.Serialization;
+*/
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-maccatalyst)'
+Before:
+using System.Diagnostics;
+After:
+using System.Diagnostics;
+using System.Text.Json;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-windows10.0.19041.0)'
+Before:
+using System.Diagnostics;
+After:
+using System.Diagnostics;
+using System.Text.Json;
+*/
+
+/* Unmerged change from project 'HomeMedia.MobileApp (net7.0-android)'
+Before:
+using System.Diagnostics;
+After:
+using System.Diagnostics;
+using System.Text.Json;
+*/
+
 
 namespace HomeMedia.MobileApp;
 
@@ -17,7 +117,7 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         _torrentDataService = torrentDataService;
 
         BindingContext = this;
-        
+
         InitializeComponent();
     }
 
@@ -54,10 +154,10 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         {
             await DisplayAlert("Warning", ex.Message, "Ok");
         }
-        finally 
+        finally
         {
             Debug.WriteLine("Request done");
-            Searching = false; 
+            Searching = false;
         }
     }
 

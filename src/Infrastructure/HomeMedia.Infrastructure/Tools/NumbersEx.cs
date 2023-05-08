@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HomeMedia.Infrastructure.Tools;
+﻿namespace HomeMedia.Infrastructure.Tools;
 public static class NumbersEx
 {
     // Returns the human-readable file size for an arbitrary, 64-bit file size 

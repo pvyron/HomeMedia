@@ -1,11 +1,7 @@
 ﻿using HomeMedia.Application.Torrents.Interfaces;
 using HomeMedia.Application.Torrents.Models;
 using HomeMedia.Contracts.Torrents;
-using HomeMedia.Models.Torrents;
-using LanguageExt;
-using LanguageExt.Common;
 using Mediator;
-using System.Text;
 using System.Text.Json;
 
 namespace HomeMedia.ExternalApi.Torrents;
@@ -38,19 +34,19 @@ public sealed class SearchTorrentsQueryHandler : IRequestHandler<SearchTorrentsQ
         if (request.Model.Episode is not null)
             query += $"E{request.Model.Episode?.ToString("D2")}";
 
-        query.Trim();
+        query = query.Trim();
         query += " ";
 
         if (request.Model.OnlyHdr.GetValueOrDefault(false))
             query += "HDR";
 
-        query.Trim();
+        query = query.Trim();
         query += " ";
 
         if (request.Model.OnlyWeb.GetValueOrDefault(false))
             query += "WEB";
 
-        query.Trim();
+        query = query.Trim();
         query += " ";
 
         switch (request.Model.Resolution)
@@ -71,11 +67,11 @@ public sealed class SearchTorrentsQueryHandler : IRequestHandler<SearchTorrentsQ
                 break;
         }
 
-        query.Trim();
+        query = query.Trim();
 
         var searchParams = new TorrentSearchParams
         {
-            QueryString = query, 
+            QueryString = query,
             Page = 1
         };
 

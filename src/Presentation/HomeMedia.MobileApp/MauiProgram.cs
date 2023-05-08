@@ -1,7 +1,5 @@
 ﻿using HomeMedia.MobileApp.Torrents;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace HomeMedia.MobileApp;
 public static class MauiProgram
