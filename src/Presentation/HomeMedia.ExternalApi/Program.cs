@@ -26,8 +26,8 @@ builder.Services.AddSwaggerGen();
 
 var services = builder.Services;
 services.AddHttpClient();
-services.AddTorrents(builder.Configuration);
 services.AddJsonOptions();
+services.AddTorrents(builder.Configuration);
 services.AddMediator(options =>
 {
     options.ServiceLifetime = ServiceLifetime.Transient;
