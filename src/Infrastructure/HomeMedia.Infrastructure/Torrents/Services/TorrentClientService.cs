@@ -18,7 +18,7 @@ internal sealed class TorrentClientService : ITorrentClientService
         _client.DefaultRequestHeaders.Add("Referer", "http://localhost:782");
     }
 
-    public async Task DownloadTorrent(string magnetUrl, string path)
+    public async ValueTask<bool> DownloadTorrent(string magnetUrl, string path)
     {
         await Authenticate();
 
@@ -29,6 +29,8 @@ internal sealed class TorrentClientService : ITorrentClientService
         var response = await _client.SendAsync(requestMessage);
 
         var responseContent = await response.Content.ReadAsStringAsync();
+
+        return true;
     }
 
     public async Task DownloadTorrent(string magnetUrl, TorrentType torrentType)

@@ -10,6 +10,7 @@ public static class ServiceInstallers
     public static IServiceCollection AddTorrents(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOptions<VHomeTorrentSearchServiceOptions>().Bind(configuration.GetSection(VHomeTorrentSearchServiceOptions.SectionName));
+        services.AddOptions<QBitTorrentClientServiceOptions>().Bind(configuration.GetSection(QBitTorrentClientServiceOptions.SectionName));
 
         services.Configure<ExternalTorrentQueueServiceOptions>(options =>
         {
@@ -19,6 +20,7 @@ public static class ServiceInstallers
 
         services.AddSingleton<ITorrentSearchService, VHomeTorrentSearchService>();
         services.AddSingleton<IExternalTorrentQueueService, ExternalTorrentQueueService>();
+        services.AddSingleton<ITorrentClientService, QBitTorrentClientService>();
 
         return services;
     }

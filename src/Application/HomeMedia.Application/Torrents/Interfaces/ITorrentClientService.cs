@@ -3,6 +3,5 @@
 namespace HomeMedia.Application.Torrents.Interfaces;
 public interface ITorrentClientService
 {
-    Task DownloadTorrent(string magnetUrl, string path);
-    Task DownloadTorrent(string magnetUrl, TorrentType torrentType);
+    ValueTask<bool> DownloadTorrent(string magnetUrl, string path);
 }
